@@ -1,0 +1,22 @@
+{
+  "name": "web-crawl-util",
+  "version": "0.1.0",
+  "description": "Crawl utils for web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matmanjs/web-crawl-util.git"
+  },
+  "keywords": [
+    "crawl"
+  ],
+  "author": "helinjiang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matmanjs/web-crawl-util/issues"
+  },
+  "homepage": "https://github.com/matmanjs/web-crawl-util#readme"
+}
