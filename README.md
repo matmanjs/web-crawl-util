@@ -10,91 +10,73 @@ $ npm install web-crawl-util
 
 ## 2. API
 
+### 2.1 useJquery
 
-## 1. getBackgroundImageUrl(jqCur, jqContainer)
+使用 jQuery 封装了一些常用操作。
 
-获得背景图地址
+#### 2.1.1 getText(jqCur, jqContainer)
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
+获得文字信息。其最终会调用 jQuery 的 [.text()](http://api.jquery.com/text/) 方法。
 
-返回对应css选择器或者jQuery对象的style中background-images属性中图片的链接
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-## 2. getImageDomUrl(jqCur, jqContainer)
+#### 2.1.2 getAttr(name, jqCur, jqContainer)
 
-获得 img 标签中图片的地址
+获得属性值。其最终会调用 jQuery 的 [.attr()](http://api.jquery.com/attr/) 方法。
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
+- `name`，属性名字，例如 'href'
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-返回对应 img 标签中的图片的链接
 
-## 3. getText(jqCur, jqContainer)
+#### 2.1.3 getTotal(jqCur, jqContainer)
 
-获得文字信息
+获得符合条件的DOM数量。其最终会调用 jQuery 的 [.length](https://api.jquery.com/length/#length1) 方法。
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-返回对应 dom 中的文字信息
 
-## 4. getAttr(name, jqCur, jqContainer)
+#### 2.1.4 isExist(jqCur, jqContainer)
 
-获得dom上的属性
+是否存在。
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `name`      | 属性名字     | `String`             |      | 是       |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-返回对应 dom 中对应属性的值
 
-## 5. getTotal(jqCur, jqContainer)
+#### 2.1.5 getImageDomUrl(jqCur, jqContainer)
 
-获得有多少个符合条件的DOM
+获得 img 标签中图片的地址。
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `name`      | 属性名字     | `String`             |      | 是       |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-返回符合选择器的元素个数
 
-## 6. isExist(jqCur, jqContainer)
+#### 2.1.6 getStyle(jqCur, jqContainer)
 
-是否存在
+获得 dom 元素中的部分计算属性值
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `name`      | 属性名字     | `String`             |      | 是       |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-返回一个 Boolean 表示元素是否存在
 
-## 7. getStyle(jqCur, jqContainer)
+返回对象:
 
-获得 dom 元素中的部分计算属性值，只取一部分即可
+| 属性          | 类型 |说明                 |
+| ------------- | --- |  -------------------- |
+| `width`      | `Number` | 元素宽度     |
+| `height`      | `Number` | 元素高度     |
+| `lineHeight`      | `Number` | 元素字体行高     |
+| `isOneLine`      | `Boolean` | 判断是否是一行文字     |
+| `computedStyle`      | `Object` | 计算之后的样式，使用 `document.defaultView.getComputedStyle(curDom)` 获得     |
+| `isExist`      | `Boolean` | 是否存在     |
 
-| 属性          | 说明                 | 类型              | 默认值 | 必选 |
-| ------------- | -------------------- | ----------------- | ------ | -------- |
-| `name`      | 属性名字     | `String`             |      | 是       |
-| `jqCur`      | css选择器或者jQuery对象     | `String || Element`             |      | 是       |
-| `jqContainer`      | 待查找的 DOM 元素集、文档或 jQuery 对象。     | `Element`             |      | 否       |
 
-返回一个 css 属性的对象
+#### 2.1.7 getBackgroundImageUrl(jqCur, jqContainer)
 
-| 属性          | 说明                 |
-| ------------- | -------------------- |
-| `width`      | 元素宽度     |
-| `height`      | 元素高度     |
-| `lineHeight`      | 元素字体行高     |
-| `isOneLine`      | 判断是否是一行文字     |
+获得 `background-image` 属性中图片的链接
+
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
