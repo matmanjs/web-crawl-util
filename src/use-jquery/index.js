@@ -109,6 +109,20 @@ function getBackgroundImageUrl(jqCur, jqContainer) {
     return matchResult[1] || '';
 }
 
+/**
+ * 获得一个列表的所有元素，以数组形式返回
+ * @param {String | Element} jqCur css选择器或者jQuery对象（列表元素item）
+ * @param {String | Element} [jqContainer] 祖先元素的css选择器或者jQuery对象
+ * @returns {Array}
+ */
+function getList(jqCur, jqContainer) {
+    const array = [];
+    $(jqCur, jqContainer).map((index, ele) => {
+        array.push(ele);
+    });
+    return array;
+}
+
 module.exports = {
     getBackgroundImageUrl: getBackgroundImageUrl,
     getImageDomUrl: getImageDomUrl,
@@ -116,5 +130,6 @@ module.exports = {
     getAttr: getAttr,
     isExist: isExist,
     getText: getText,
-    getTotal: getTotal
+    getTotal: getTotal,
+    getList: getList
 };
