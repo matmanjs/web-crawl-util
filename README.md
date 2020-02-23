@@ -80,3 +80,12 @@ $ npm install web-crawl-util
 
 - `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
+
+
+#### 2.1.8 getList(jqCur, jqContainer)
+
+获得一个列表的所有元素，以数组形式返回
+
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
+
