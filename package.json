@@ -4,8 +4,8 @@
   "description": "Crawl utils for web",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "babel src -d lib -w",
-    "prepublishOnly": "babel src -d lib"
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

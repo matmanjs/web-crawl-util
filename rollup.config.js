@@ -3,8 +3,9 @@ import typescript from '@rollup/plugin-typescript';
 export default {
   input: 'src/index.ts',
   output: {
-    dir: 'output',
-    format: 'cjs',
+    dir: 'lib',
+    name: 'useJquery',
+    format: 'iife',
   },
   plugins: [typescript()],
 };
