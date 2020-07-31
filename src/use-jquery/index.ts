@@ -51,7 +51,7 @@ export function getAttr(
  * @param {String | Element} [jqContainer] 祖先元素的css选择器或者jQuery对象
  * @return {Number}
  */
-function getTotal(
+export function getTotal(
   jqCur: string,
   jqContainer: string | JQuery<HTMLElement>
 ): number {

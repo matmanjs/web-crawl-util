@@ -27,6 +27,7 @@
     "@typescript-eslint/parser": "^3.7.1",
     "eslint": "^7.5.0",
     "rollup": "^2.23.0",
+    "rollup-plugin-terser": "^6.1.0",
     "typescript": "^3.9.7"
   }
 }
