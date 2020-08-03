@@ -10,7 +10,7 @@ export function getImageDomUrl(
 ): string {
   const res = $(jqCur, jqContainer);
 
-  return $.trim(res.attr('src'));
+  return res.attr('src').trim();
 }
 
 /**
@@ -25,7 +25,7 @@ export function getText(
 ): string {
   const res = $(jqCur, jqContainer);
 
-  return $.trim(res.text());
+  return res.text().trim();
 }
 
 /**
@@ -42,7 +42,7 @@ export function getAttr(
 ): string {
   const res = $(jqCur, jqContainer);
 
-  return $.trim(res.attr(name));
+  return res.attr(name).trim();
 }
 
 /**
