@@ -1,1 +1,3 @@
-export * from './use-jquery';
+import * as useJquery from './use-jquery';
+
+export { useJquery };
