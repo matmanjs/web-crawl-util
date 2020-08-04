@@ -1,6 +1,6 @@
 {
   "name": "web-crawl-util",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Crawl utils for web",
   "main": "lib/index.js",
   "scripts": {
