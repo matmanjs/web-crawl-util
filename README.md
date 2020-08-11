@@ -80,3 +80,22 @@ $ npm install web-crawl-util
 
 - `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
+
+#### 2.1.8 getDataFromTable(jqCur, jqContainer)
+
+获得 table 表格中的数据，返回一个二维数组。
+
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
+
+可以查看 [table.html] 这个示例，执行后的结果为：
+
+```js
+// 目标结果
+const targetResult = [
+  ['客户', '期初余额', '订单金额', '订单金额', '收款金额', '收款账户', '客户余额', '备注'],
+  ['新月', '21', '22', '23', '24', '25', '26', ''],
+  ['新月', '31', '22', '33', '34', '35', '36', ''],
+  ['合计', '41', '22', '43', '43', '-', '46', '']
+];
+```

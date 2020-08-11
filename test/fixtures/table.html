@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <!-- 演示数据部分 -->
+    <table id="expTable" class="table table-bordered">
+        <tbody>
+        <tr class="head">
+            <th>客户</th>
+            <th>期初余额</th>
+            <th colspan="2">订单金额</th>
+            <th>收款金额</th>
+            <th>收款账户</th>
+            <th>客户余额</th>
+            <th>备注</th>
+        </tr>
+        <tr>
+            <td rowspan="2">新月</td>
+            <td>21</td>
+            <td rowspan="3">22</td>
+            <td>23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>31</td>
+            <td>33</td>
+            <td>34</td>
+            <td>35</td>
+            <td>36</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>合计</td>
+            <td>41</td>
+            <td colspan="2">43</td>
+            <td>-</td>
+            <td>46</td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="../../lib/index.lib.js"></script>
+<script>
+  // 获取数据
+  const dataFromTable = webCrawlUtil.useJquery.getDataFromTable('#expTable');
+  console.log(dataFromTable);
+
+  // 目标结果
+  const targetResult = [
+    ['客户', '期初余额', '订单金额', '订单金额', '收款金额', '收款账户', '客户余额', '备注'],
+    ['新月', '21', '22', '23', '24', '25', '26', ''],
+    ['新月', '31', '22', '33', '34', '35', '36', ''],
+    ['合计', '41', '22', '43', '43', '-', '46', '']
+  ];
+
+  if (JSON.stringify(dataFromTable) !== JSON.stringify(targetResult)) {
+    throw new Error('解析出错了！！！！');
+  } else {
+    console.log('解析结果符合预期！');
+  }
+</script>
+
+
+</body>
+</html>

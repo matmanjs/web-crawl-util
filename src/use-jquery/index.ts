@@ -138,3 +138,80 @@ export function getBackgroundImageUrl(
 
   return matchResult[1] || '';
 }
+
+/**
+ * 获得table表格中的数据
+ * @param {String | Element} jqCur css选择器或者jQuery对象
+ * @param {String | Element} [jqContainer] 祖先元素的css选择器或者jQuery对象
+ * @return {Array}
+ */
+export function getDataFromTable(
+  jqCur: string,
+  jqContainer: string | JQuery<HTMLElement>
+): any[] {
+  const data = [];
+
+  // table，但是也不用局限是 table
+  const jqTable = $(jqCur, jqContainer);
+
+  // table tr
+  const jqTableTr = $('tr', jqTable);
+
+  // 必须要有 tr ，这样才能拿到数据，如果不存在则直接返回
+  if (!jqTableTr.length) {
+    return data;
+  }
+
+  // 遍历 tr，获取其中 th 和 td 的数据存入到结果数组中
+  jqTableTr.each(function () {
+    const arr = [];
+
+    $(this).children('th,td').each(function () {
+      const content = $.trim($(this).text());
+      arr.push(content);
+
+      // 注意处理跨列的场景 colspan
+      const colspanVal = $(this).attr('colspan');
+      if (colspanVal) {
+        for (let i = 0, len = parseInt(colspanVal) - 1; i < len; i++) {
+          arr.push(content);
+        }
+      }
+    });
+
+    data.push(arr);
+  });
+
+  // 二次处理，主要是为了处理跨行 rowspan
+  let yIndex = 0;
+  jqTableTr.each(function () {
+    let xIndex = 0;
+
+    $(this).children('th,td').each(function () {
+      // 计算跨行的场景
+      const rowspanVal = $(this).attr('rowspan');
+      if (rowspanVal) {
+        // 如果该 th 或 td 上有 rowspan 值，则其后续行数（具体看 rowspan 的值）对于位置的值都一样
+        for (let i = 1, len = parseInt(rowspanVal); i < len; i++) {
+          // 后续被跨行的表格数据数组
+          const arr = data[yIndex + i];
+
+          // 在被跨行的位置上插入一个同一个值
+          arr.splice(xIndex, 0, data[yIndex][xIndex]);
+        }
+      }
+
+      // 计算跨列的场景
+      const colspanVal = $(this).attr('colspan');
+      if (colspanVal) {
+        xIndex += parseInt(colspanVal);
+      } else {
+        xIndex++;
+      }
+    });
+
+    yIndex++;
+  });
+
+  return data;
+}

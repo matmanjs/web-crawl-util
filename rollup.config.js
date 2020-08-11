@@ -6,7 +6,7 @@ export default {
   output: [
     {
       file: 'lib/index.lib.js',
-      name: 'useJquery',
+      name: 'webCrawlUtil',
       format: 'iife',
       plugins: [terser()],
     },
