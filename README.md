@@ -88,7 +88,7 @@ $ npm install web-crawl-util
 - `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-可以查看 [table.html] 这个示例，执行后的结果为：
+可以查看 [test/fixtures/table.html](./test/fixtures/table.html) 这个示例，执行后的结果为：
 
 ![](./img/useJquery_getDataFromTable.png)
 
