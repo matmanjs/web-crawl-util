@@ -90,6 +90,8 @@ $ npm install web-crawl-util
 
 可以查看 [table.html] 这个示例，执行后的结果为：
 
+![](./img/useJquery_getDataFromTable.png)
+
 ```js
 // 目标结果
 const targetResult = [
