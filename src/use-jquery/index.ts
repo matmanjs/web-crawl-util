@@ -10,7 +10,7 @@ export function getImageDomUrl(
 ): string {
   const res = $(jqCur, jqContainer);
 
-  return res.attr('src').trim();
+  return $.trim(res.attr('src'));
 }
 
 /**
@@ -25,7 +25,22 @@ export function getText(
 ): string {
   const res = $(jqCur, jqContainer);
 
-  return res.text().trim();
+  return $.trim(res.text());
+}
+
+/**
+ * 获得 input 元素中的值
+ * @param {String | Element} jqCur css选择器或者jQuery对象
+ * @param {String | Element} [jqContainer] 祖先元素的css选择器或者jQuery对象
+ * @return {String}
+ */
+export function getVal(
+  jqCur: string,
+  jqContainer: string | JQuery<HTMLElement>
+): string | number | string[] {
+  const res = $(jqCur, jqContainer);
+
+  return res.val();
 }
 
 /**
@@ -42,7 +57,7 @@ export function getAttr(
 ): string {
   const res = $(jqCur, jqContainer);
 
-  return res.attr(name).trim();
+  return $.trim(res.attr(name));
 }
 
 /**

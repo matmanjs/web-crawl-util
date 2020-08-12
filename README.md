@@ -21,7 +21,14 @@ $ npm install web-crawl-util
 - `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-#### 2.1.2 getAttr(name, jqCur, jqContainer)
+#### 2.1.2 getVal(jqCur, jqContainer)
+
+获得 input 元素中的值。其最终会调用 jQuery 的 [.val()](http://api.jquery.com/val/) 方法。
+
+- `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
+- `jqContainer`，祖先元素的css选择器或者jQuery对象
+
+#### 2.1.3 getAttr(name, jqCur, jqContainer)
 
 获得属性值。其最终会调用 jQuery 的 [.attr()](http://api.jquery.com/attr/) 方法。
 
@@ -30,7 +37,7 @@ $ npm install web-crawl-util
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
 
-#### 2.1.3 getTotal(jqCur, jqContainer)
+#### 2.1.4 getTotal(jqCur, jqContainer)
 
 获得符合条件的DOM数量。其最终会调用 jQuery 的 [.length](https://api.jquery.com/length/#length1) 方法。
 
@@ -38,7 +45,7 @@ $ npm install web-crawl-util
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
 
-#### 2.1.4 isExist(jqCur, jqContainer)
+#### 2.1.5 isExist(jqCur, jqContainer)
 
 是否存在。
 
@@ -46,7 +53,7 @@ $ npm install web-crawl-util
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
 
-#### 2.1.5 getImageDomUrl(jqCur, jqContainer)
+#### 2.1.6 getImageDomUrl(jqCur, jqContainer)
 
 获得 img 标签中图片的地址。
 
@@ -54,7 +61,7 @@ $ npm install web-crawl-util
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
 
-#### 2.1.6 getStyle(jqCur, jqContainer)
+#### 2.1.7 getStyle(jqCur, jqContainer)
 
 获得 dom 元素中的部分计算属性值
 
@@ -74,14 +81,14 @@ $ npm install web-crawl-util
 | `isExist`      | `Boolean` | 是否存在     |
 
 
-#### 2.1.7 getBackgroundImageUrl(jqCur, jqContainer)
+#### 2.1.8 getBackgroundImageUrl(jqCur, jqContainer)
 
 获得 `background-image` 属性中图片的链接
 
 - `jqCur`，css选择器或者jQuery对象，例如 '#id .css'
 - `jqContainer`，祖先元素的css选择器或者jQuery对象
 
-#### 2.1.8 getDataFromTable(jqCur, jqContainer)
+#### 2.1.9 getDataFromTable(jqCur, jqContainer)
 
 获得 table 表格中的数据，返回一个二维数组。
 
