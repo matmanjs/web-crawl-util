@@ -11,16 +11,16 @@ function getSelector(dom) {
   let i;
   const originalDom = dom;
 
-  for (path = "", i = 0; dom && dom.nodeType === 1; dom = dom.parentNode, i++) {
+  for (path = '', i = 0; dom && dom.nodeType === 1; dom = dom.parentNode, i++) {
     // 有 id 的情况直接退出
     if (dom.id) {
-      path = "#" + dom.id + " " + path;
+      path = '#' + dom.id + ' ' + path;
       break;
     }
 
     // 可能会有多个class
     if (dom.className) {
-      path = "." + dom.className.trim().split(/\s+/).join(".") + " " + path;
+      path = '.' + dom.className.trim().split(/\s+/).join('.') + ' ' + path;
     } else if (i === 0) {
       // 如果是当前 dom 节点，且无 class，则使用其 tagName
       path = dom.tagName.toLowerCase();
@@ -56,32 +56,50 @@ function getSelector(dom) {
  */
 function createSampleCode(dom) {
   const selector = getSelector(dom);
-  console.log("---createSampleCode---", selector, dom);
+  console.log('---createSampleCode---', selector, dom);
 
+  const result = createSampleCodeBySelector(selector);
+
+  console.log(result);
+
+  return result;
+}
+
+/**
+ * 通过制定的 selector 生成代码
+ *
+ * @param {String} selector
+ */
+function createSampleCodeBySelector(selector) {
   const result = [];
+  const { useJquery } = window.webCrawlUtil || {};
 
   result.push(`// [元素选择器]： ${selector}`);
   result.push(`const selector = "${selector}";`);
-  result.push("");
+  result.push('');
 
-  result.push(`// [文本内容]： ${useJquery.getText(selector)}`);
-  result.push(`const text = useJquery.getText("${selector}");`);
-  result.push("");
+  if (typeof useJquery !== 'undefined') {
+    result.push(`// [文本内容]： ${useJquery.getText(selector)}`);
+    result.push(`const text = useJquery.getText("${selector}");`);
+    result.push('');
 
-  result.push(`// [匹配个数]： ${useJquery.getTotal(selector)}`);
-  result.push(`const total = useJquery.getTotal("${selector}");`);
-  result.push("");
+    result.push(`// [匹配个数]： ${useJquery.getTotal(selector)}`);
+    result.push(`const total = useJquery.getTotal("${selector}");`);
+    result.push('');
 
-  result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
-  result.push(`const isExist = useJquery.isExist("${selector}");`);
-  result.push("");
+    result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
+    result.push(`const isExist = useJquery.isExist("${selector}");`);
+    result.push('');
 
+    result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
+    result.push(`const isExist = useJquery.isExist("${selector}");`);
+    result.push('');
+  } else {
+    result.push(`// window.webCrawlUtil.useJquery 不存在`);
+    result.push('');
+  }
 
-  result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
-  result.push(`const isExist = useJquery.isExist("${selector}");`);
-  result.push("");
-
-  console.log(result.join("\n"));
+  return result.join('\n');
 }
 
 // TODO 测试代码
