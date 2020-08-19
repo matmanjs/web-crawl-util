@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+        .section {
+            margin-bottom: 10px;
+            padding: 2px 10px;
+        }
+
+        #anchors {
+            display: flex;
+        }
+
+        #anchors .use-img {
+            width: 50%;
+            height: 100%;
+        }
+
+        #anchors .use-background {
+            width: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #rules p {
+            font-size: 14px;
+            line-height: 20px;
+            margin-top: 11px;
+        }
+
+        #rules .btn-group {
+            display: flex;
+        }
+
+        #rules .btn {
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        #rules .btn.active {
+            background-color: #05d380;
+            color: #fff;
+        }
+
+        #rules .btn.disable {
+            background-color: #aaa;
+            color: #fff;
+        }
+
+        #tips .long-word {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 21px;
+            line-height: 21px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="width: 400px; background-color: #eee">
+    <div id="root">
+        <div id="container">
+            <div id="anchors" class="section">
+                <img class="use-img"
+                     src="//pic.url.cn/hy_personal/33ab1df8c733dfb724654cb8d9b8fe91647fc4ed4ade9ec4002d92f0e8867248/640"
+                     alt="推荐主播1">
+                <div class="use-background"
+                     style="background-image: url(//pic.url.cn/hy_personal/e308b9c90742cc3c5c67334b6db49b19f891e8d507212fde3af431b8b8597b02/640);"></div>
+            </div>
+            <div id="rules" class="section"><h2>规则说明：</h2>
+                <p>1.第一条规则；</p>
+                <p>2.第二条规则；</p>
+                <p>3.第三条规则，这条规则很长，会自动换行展示自动换行展示自动换行展示自动换行展示自动换行展示；</p>
+                <div class="btn-group">
+                    <div class="btn active">同意</div>
+                    <div class="btn disable">不同意</div>
+                </div>
+            </div>
+            <div id="tips" class="section"><h2>友情提示：</h2>
+                <div class="long-word">我简单说两句，我很长，但是不能够换行不能够换行不能够换行不能够换行不能够换行不能够换行不能够换行</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="../../lib/index.lib.js"></script>
+<script src="./create-sample-code.js"></script>
+<script>
+
+</script>
+
+
+</body>
+</html>
