@@ -35,7 +35,7 @@ function getSelector(dom) {
     for (let index = 0; index < selectorAll.length; index++) {
       const element = selectorAll[index];
       if (element === originalDom) {
-        result = `${result}:nth-child(${index + 1})`;
+        result = `${result}:eq(${index})`;
         break;
       }
     }
