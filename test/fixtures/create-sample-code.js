@@ -49,33 +49,71 @@ function getSelector(dom) {
  *
  * @param {DOM} dom
  */
-function createSampleCode(dom) {
+function createSampleCode(dom, opts) {
   const selector = getSelector(dom);
-  console.log('---createSampleCode---', selector, dom);
+  console.log('---createSampleCode---', selector, dom, opts);
 
-  const result = createSampleCodeBySelector(selector);
+  const result = createSampleCodeBySelector(selector, opts);
 
   console.log(result);
 
   return result;
 }
 
+const CODE_STYLE_TYPE = {
+  DEFAULT: 1,
+  SELECTOR: 2,
+  PARENT: 3,
+};
+
 /**
  * 通过制定的 selector 生成代码
  *
  * @param {String} selector
+ * @param {Object} opts
+ * @param {Number} opts.codeStyleType
+ * @param {String} opts.parentSelectorName
+ * @param {String} opts.selectorName
+ * @param {String} opts.selectedParentSelector
  */
-function createSampleCodeBySelector(selector) {
+function createSampleCodeBySelector(selector, opts = {}) {
   const result = [];
   const { useJquery } = window.webCrawlUtil || {};
 
-  result.push(`// [元素选择器]： ${selector}`);
-  result.push(`const selector = "${selector}";`);
+  // 除了父级选择器之外的部分 selector 值
+  const otherSelectorWithoutParent = opts.selectedParentSelector && selector.replace(opts.selectedParentSelector, '');
+
+  // useJquery.xxx(yy) 中 yy 的值
+  let useQueryParamContentStr;
+  switch (opts.codeStyleType) {
+    case CODE_STYLE_TYPE.SELECTOR:
+      useQueryParamContentStr = `${opts.selectorName}`;
+      break;
+    case CODE_STYLE_TYPE.PARENT:
+      useQueryParamContentStr = `"${otherSelectorWithoutParent}", "${opts.parentSelectorName}"`;
+      break;
+    default:
+      useQueryParamContentStr = `"${selector}"`;
+      break;
+  }
+
+  result.push(`// [当前选中的元素 selector 值]： ${selector}`);
+  switch (opts.codeStyleType) {
+    case CODE_STYLE_TYPE.SELECTOR:
+      result.push(`const ${opts.selectorName} = "${useQueryParamContentStr}";`);
+      break;
+    case CODE_STYLE_TYPE.PARENT:
+      result.push(`const ${opts.parentSelectorName} = "${selectedParentSelector}";`);
+      break;
+    default:
+      result.push(`const selector = ${useQueryParamContentStr};`);
+      break;
+  }
   result.push('');
 
   if (typeof useJquery !== 'undefined') {
     result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
-    result.push(`const isExist = useJquery.isExist("${selector}");`);
+    result.push(`const isExist = useJquery.isExist(${useQueryParamContentStr});`);
     result.push('');
 
     if ($(selector).is('input')
@@ -84,13 +122,13 @@ function createSampleCodeBySelector(selector) {
       result.push(`/* [获得 input/select/textarea 元素中的值]：`);
       result.push(`${useJquery.getVal(selector)}`);
       result.push(`*/`);
-      result.push(`const val = useJquery.getVal("${selector}");`);
+      result.push(`const val = useJquery.getVal(${useQueryParamContentStr});`);
       result.push('');
     } else if ($(selector).is('img')) {
       const imageDomUrl = useJquery.getImageDomUrl(selector);
       if (imageDomUrl) {
         result.push(`// [img 标签中图片的地址]： ${imageDomUrl}`);
-        result.push(`const imageDomUrl = useJquery.getImageDomUrl("${selector}");`);
+        result.push(`const imageDomUrl = useJquery.getImageDomUrl(${useQueryParamContentStr});`);
         result.push('');
       }
     } else if ($(selector).is('table')) {
@@ -99,37 +137,37 @@ function createSampleCodeBySelector(selector) {
         result.push(`/* [获得table表格中的数据]：`);
         result.push(`${JSON.stringify(dataFromTable)}`);
         result.push(`*/`);
-        result.push(`const dataFromTable = useJquery.getDataFromTable("${selector}");`);
+        result.push(`const dataFromTable = useJquery.getDataFromTable(${useQueryParamContentStr});`);
         result.push('');
       }
     } else {
       result.push(`/* [文本内容]：`);
       result.push(`${useJquery.getText(selector)}`);
       result.push(`*/`);
-      result.push(`const text = useJquery.getText("${selector}");`);
+      result.push(`const text = useJquery.getText(${useQueryParamContentStr});`);
       result.push('');
     }
 
     result.push(`// [匹配个数]： ${useJquery.getTotal(selector)}`);
-    result.push(`const total = useJquery.getTotal("${selector}");`);
+    result.push(`const total = useJquery.getTotal(${useQueryParamContentStr});`);
     result.push('');
 
     result.push(`// [获得dom上的属性，举例获取 class]： ${useJquery.getAttr('class', selector)}`);
-    result.push(`const attrClass = useJquery.getAttr('class',"${selector}");`);
+    result.push(`const attrClass = useJquery.getAttr('class', ${useQueryParamContentStr});`);
     result.push('');
 
     const styleObj = useJquery.getStyle(selector);
     result.push(`/* [dom 元素中的部分计算属性值]：`);
     result.push(`${JSON.stringify(styleObj, null, 2)}`);
-    result.push(`注意：你也可以通过 useJquery.getComputedStyle("${selector}") 方法获得更多计算属性`);
+    result.push(`注意：你也可以通过 useJquery.getComputedStyle(${useQueryParamContentStr}) 方法获得更多计算属性`);
     result.push(`*/`);
-    result.push(`const styleObj = useJquery.getStyle("${selector}");`);
+    result.push(`const styleObj = useJquery.getStyle(${useQueryParamContentStr});`);
     result.push('');
 
     const backgroundImageUrl = useJquery.getBackgroundImageUrl(selector);
     if (backgroundImageUrl) {
       result.push(`// [背景图地址]： ${backgroundImageUrl}`);
-      result.push(`const backgroundImageUrl = useJquery.getBackgroundImageUrl("${selector}");`);
+      result.push(`const backgroundImageUrl = useJquery.getBackgroundImageUrl(${useQueryParamContentStr});`);
       result.push('');
     }
 
@@ -146,3 +184,10 @@ function createSampleCodeBySelector(selector) {
 
 // TODO 测试代码
 // createSampleCode($0);
+
+// createSampleCode($0, {
+//   codeStyleType: 1,
+//   parentSelectorName: 'parentSelector33sdf',
+//   selectedParentSelector: '#rules .btn-group',
+//   selectorName: 'selector',
+// });
