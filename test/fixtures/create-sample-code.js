@@ -1,5 +1,3 @@
-// const { useJquery } = webCrawlUtil;
-
 /**
  * 通过选择的 DOM ，获得 selector 选择器
  *
@@ -79,7 +77,13 @@ function createSampleCodeBySelector(selector) {
   result.push('');
 
   if (typeof useJquery !== 'undefined') {
-    result.push(`// [文本内容]： ${useJquery.getText(selector)}`);
+    result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
+    result.push(`const isExist = useJquery.isExist("${selector}");`);
+    result.push('');
+
+    result.push(`/* [文本内容]：`);
+    result.push(`${useJquery.getText(selector)}`);
+    result.push(`*/`);
     result.push(`const text = useJquery.getText("${selector}");`);
     result.push('');
 
@@ -87,13 +91,44 @@ function createSampleCodeBySelector(selector) {
     result.push(`const total = useJquery.getTotal("${selector}");`);
     result.push('');
 
-    result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
-    result.push(`const isExist = useJquery.isExist("${selector}");`);
+    result.push(`// [获得dom上的属性，举例获取 class]： ${useJquery.getAttr('class', selector)}`);
+    result.push(`const attrClass = useJquery.getAttr('class',"${selector}");`);
     result.push('');
 
-    result.push(`// [是否存在]： ${useJquery.isExist(selector)}`);
-    result.push(`const isExist = useJquery.isExist("${selector}");`);
+    const styleObj = useJquery.getStyle(selector);
+    delete styleObj.computedStyle;
+    result.push(`/* [dom 元素中的部分计算属性值]：`);
+    result.push(`${JSON.stringify(styleObj, null, 2)}`);
+    result.push(`注意：你也可以通过 useJquery.getComputedStyle("${selector}") 方法获得更多计算属性`);
+    result.push(`*/`);
+    result.push(`const styleObj = useJquery.getStyle("${selector}");`);
     result.push('');
+
+    const backgroundImageUrl = useJquery.getBackgroundImageUrl(selector);
+    if (backgroundImageUrl) {
+      result.push(`// [背景图地址]： ${backgroundImageUrl}`);
+      result.push(`const backgroundImageUrl = useJquery.getBackgroundImageUrl("${selector}");`);
+      result.push('');
+    }
+
+    if ($(selector).is('img')) {
+      const imageDomUrl = useJquery.getImageDomUrl(selector);
+      if (imageDomUrl) {
+        result.push(`// [img 标签中图片的地址]： ${imageDomUrl}`);
+        result.push(`const imageDomUrl = useJquery.getImageDomUrl("${selector}");`);
+        result.push('');
+      }
+    }
+
+    if ($(selector).is('input')
+      || $(selector).is('select')
+      || $(selector).is('textarea')) {
+      result.push(`/* [获得 input/select/textarea 元素中的值]：`);
+      result.push(`${useJquery.getVal(selector)}`);
+      result.push(`*/`);
+      result.push(`const val = useJquery.getVal("${selector}");`);
+      result.push('');
+    }
   } else {
     result.push(`// window.webCrawlUtil.useJquery 不存在`);
     result.push('');

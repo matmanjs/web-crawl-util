@@ -29,7 +29,7 @@ export function getText(
 }
 
 /**
- * 获得 input 元素中的值
+ * 获得 input/select/textarea 元素中的值
  * @param {String | Element} jqCur css选择器或者jQuery对象
  * @param {String | Element} [jqContainer] 祖先元素的css选择器或者jQuery对象
  * @return {String}
@@ -103,17 +103,13 @@ export function getStyle(
   height?: string;
   lineHeight?: string;
   isOneLine?: boolean;
-  computedStyle?: any;
 } {
-  const curDom = $(jqCur, jqContainer)[0];
-
-  if (!curDom) {
+  const computedStyle = getComputedStyle(jqCur, jqContainer);
+  if (!computedStyle) {
     return {
       isExist: false,
     };
   }
-
-  const computedStyle = document.defaultView.getComputedStyle(curDom);
 
   return {
     isExist: true,
@@ -121,10 +117,27 @@ export function getStyle(
     height: computedStyle.height,
     lineHeight: computedStyle.lineHeight,
     // 判断是否是一行文字，注意此处即使是一行，height和lineHeight可能不是绝对相等，比如前者是 24.14px，而后者可能为 24.13px，但相差不大
-    isOneLine:
-      parseInt(computedStyle.height) === parseInt(computedStyle.lineHeight),
-    computedStyle: computedStyle,
+    isOneLine: parseInt(computedStyle.height) === parseInt(computedStyle.lineHeight),
   };
+}
+
+/**
+ * 获得 computedStyle 计算样式
+ * @param {String | Element} jqCur css选择器或者jQuery对象
+ * @param {String | Element} [jqContainer] 祖先元素的css选择器或者jQuery对象
+ * @return {Object}
+ */
+export function getComputedStyle(
+  jqCur: string,
+  jqContainer: string | JQuery<HTMLElement>
+): any {
+  const curDom = $(jqCur, jqContainer)[0];
+
+  if (!curDom) {
+    return null;
+  }
+
+  return document.defaultView.getComputedStyle(curDom);
 }
 
 /**
@@ -137,7 +150,7 @@ export function getBackgroundImageUrl(
   jqCur: string,
   jqContainer: string | JQuery<HTMLElement>
 ): string {
-  const computedStyle = getStyle(jqCur, jqContainer).computedStyle;
+  const computedStyle = getComputedStyle(jqCur, jqContainer);
 
   if (!computedStyle) {
     return '';
