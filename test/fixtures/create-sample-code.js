@@ -90,7 +90,7 @@ function createSampleCodeBySelector(selector, opts = {}) {
       useQueryParamContentStr = `${opts.selectorName}`;
       break;
     case CODE_STYLE_TYPE.PARENT:
-      useQueryParamContentStr = `"${otherSelectorWithoutParent}", "${opts.parentSelectorName}"`;
+      useQueryParamContentStr = `"${otherSelectorWithoutParent}", ${opts.parentSelectorName}`;
       break;
     default:
       useQueryParamContentStr = `"${selector}"`;
