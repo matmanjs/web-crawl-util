@@ -100,13 +100,13 @@ function createSampleCodeBySelector(selector, opts = {}) {
   result.push(`// [当前选中的元素 selector 值]： ${selector}`);
   switch (opts.codeStyleType) {
     case CODE_STYLE_TYPE.SELECTOR:
-      result.push(`const ${opts.selectorName} = "${useQueryParamContentStr}";`);
+      result.push(`const ${opts.selectorName} = "${selector}";`);
       break;
     case CODE_STYLE_TYPE.PARENT:
-      result.push(`const ${opts.parentSelectorName} = "${selectedParentSelector}";`);
+      result.push(`const ${opts.parentSelectorName} = "${opts.selectedParentSelector}";`);
       break;
     default:
-      result.push(`const selector = ${useQueryParamContentStr};`);
+      result.push(`const selector = "${selector}";`);
       break;
   }
   result.push('');
