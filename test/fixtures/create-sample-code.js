@@ -86,6 +86,22 @@ function createSampleCodeBySelector(selector) {
       result.push(`*/`);
       result.push(`const val = useJquery.getVal("${selector}");`);
       result.push('');
+    } else if ($(selector).is('img')) {
+      const imageDomUrl = useJquery.getImageDomUrl(selector);
+      if (imageDomUrl) {
+        result.push(`// [img 标签中图片的地址]： ${imageDomUrl}`);
+        result.push(`const imageDomUrl = useJquery.getImageDomUrl("${selector}");`);
+        result.push('');
+      }
+    } else if ($(selector).is('table')) {
+      const dataFromTable = useJquery.getDataFromTable(selector);
+      if (dataFromTable) {
+        result.push(`/* [获得table表格中的数据]：`);
+        result.push(`${JSON.stringify(dataFromTable)}`);
+        result.push(`*/`);
+        result.push(`const dataFromTable = useJquery.getDataFromTable("${selector}");`);
+        result.push('');
+      }
     } else {
       result.push(`/* [文本内容]：`);
       result.push(`${useJquery.getText(selector)}`);
@@ -117,25 +133,6 @@ function createSampleCodeBySelector(selector) {
       result.push('');
     }
 
-    if ($(selector).is('img')) {
-      const imageDomUrl = useJquery.getImageDomUrl(selector);
-      if (imageDomUrl) {
-        result.push(`// [img 标签中图片的地址]： ${imageDomUrl}`);
-        result.push(`const imageDomUrl = useJquery.getImageDomUrl("${selector}");`);
-        result.push('');
-      }
-    }
-
-    if ($(selector).is('table')) {
-      const dataFromTable = useJquery.getDataFromTable(selector);
-      if (dataFromTable) {
-        result.push(`/* [获得table表格中的数据]：`);
-        result.push(`${JSON.stringify(dataFromTable)}`);
-        result.push(`*/`);
-        result.push(`const dataFromTable = useJquery.getDataFromTable("${selector}");`);
-        result.push('');
-      }
-    }
   } else {
     result.push(`// window.webCrawlUtil.useJquery 不存在`);
     result.push('');
