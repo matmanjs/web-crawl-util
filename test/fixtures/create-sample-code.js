@@ -107,7 +107,7 @@ function createSampleCodeBySelector(selector, opts = {}) {
     case CODE_STYLE_TYPE.PARENT:
       result.push(`const selector = "${selector}";`);
       result.push(
-        `const ${opts.parentSelectorName} = "${(selector === opts.selectedParentSelector) ? undefined : opts.selectedParentSelector}";`,
+        `const ${opts.parentSelectorName} = "${opts.selectedParentSelector}";`,
       );
       break;
     default:
