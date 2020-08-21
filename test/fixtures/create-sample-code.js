@@ -81,7 +81,7 @@ function createSampleCodeBySelector(selector, opts = {}) {
   const { useJquery } = window.webCrawlUtil || {};
 
   // 除了父级选择器之外的部分 selector 值
-  const otherSelectorWithoutParent = opts.selectedParentSelector && selector.replace(opts.selectedParentSelector, '');
+  const otherSelectorWithoutParent = opts.selectedParentSelector && selector.replace(opts.selectedParentSelector, '').trim();
 
   // useJquery.xxx(yy) 中 yy 的值
   let useQueryParamContentStr;
@@ -103,6 +103,7 @@ function createSampleCodeBySelector(selector, opts = {}) {
       result.push(`const ${opts.selectorName} = "${selector}";`);
       break;
     case CODE_STYLE_TYPE.PARENT:
+      result.push(`const selector = "${selector}";`);
       result.push(`const ${opts.parentSelectorName} = "${opts.selectedParentSelector}";`);
       break;
     default:
